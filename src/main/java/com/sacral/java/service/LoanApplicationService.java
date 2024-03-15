@@ -17,31 +17,31 @@ public class LoanApplicationService {
         this.loanApplicationRepository = loanApplicationRepository;
     }
 
-    public LoanApplication findById(long id) {
-        return loanApplicationRepository.findById(id);
+    public List<LoanApplication> findPendingApplications() {
+        return loanApplicationRepository.findPendingApplications();
     }
 
-    public List<LoanApplication> findAll() {
-        return loanApplicationRepository.findAll();
+    public List<LoanApplication> findVerifiedApplications() {
+        return loanApplicationRepository.findVerifiedApplications();
     }
 
-    public List<LoanApplication> findByCustomerId(long customerId) {
-        return loanApplicationRepository.findByCustomerId(customerId);
+    public List<LoanApplication> findRejectedApplications() {
+        return loanApplicationRepository.findRejectedApplications();
     }
 
-    public List<LoanApplication> findByApplicationChannel(String applicationChannel) {
-        return loanApplicationRepository.findByApplicationChannel(applicationChannel);
+    public List<LoanApplication> findPendingApplicationsByEmployeeId(Long employeeId) {
+        return loanApplicationRepository.findPendingApplicationsByEmployeeId(employeeId);
     }
 
-    public List<LoanApplication> findByStatus(String status) {
-        return loanApplicationRepository.findByStatus(status);
+    public List<LoanApplication> findVerifiedApplicationsByEmployeeId(Long employeeId) {
+        return loanApplicationRepository.findVerifiedApplicationsByEmployeeId(employeeId);
     }
 
-    public List<LoanApplication> findByAccessibilityCompliance(boolean accessibilityCompliance) {
-        return loanApplicationRepository.findByAccessibilityCompliance(accessibilityCompliance);
+    public List<LoanApplication> findRejectedApplicationsByEmployeeId(Long employeeId) {
+        return loanApplicationRepository.findRejectedApplicationsByEmployeeId(employeeId);
     }
 
-    public List<LoanApplication> findIncompleteApplications() {
-        return loanApplicationRepository.findIncompleteApplications();
+    public LoanApplication findByApplicantId(Long applicantId) {
+        return loanApplicationRepository.findByApplicantId(applicantId);
     }
 }

@@ -4,30 +4,29 @@ package com.sacral.java.repository;
 import com.sacral.java.model.LoanApplication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+
 public interface LoanApplicationRepository extends JpaRepository<LoanApplication, Long> {
 
-    // Method to retrieve a loan application by its ID
-    LoanApplication findById(long id);
+    @Query("SELECT la FROM LoanApplication la WHERE la.verificationStatus = 'PENDING'")
+    List<LoanApplication> findPendingApplications();
 
-    // Method to retrieve all loan applications
-    List<LoanApplication> findAll();
+    @Query("SELECT la FROM LoanApplication la WHERE la.verificationStatus = 'VERIFIED'")
+    List<LoanApplication> findVerifiedApplications();
 
-    // Method to retrieve loan applications by customer ID
-    List<LoanApplication> findByCustomerId(long customerId);
+    @Query("SELECT la FROM LoanApplication la WHERE la.verificationStatus = 'REJECTED'")
+    List<LoanApplication> findRejectedApplications();
 
-    // Method to retrieve loan applications by application channel
-    List<LoanApplication> findByApplicationChannel(String applicationChannel);
+    @Query("SELECT la FROM LoanApplication la WHERE la.verificationStatus = 'PENDING' AND la.employeeId = ?1")
+    List<LoanApplication> findPendingApplicationsByEmployeeId(Long employeeId);
 
-    // Method to retrieve loan applications by status
-    List<LoanApplication> findByStatus(String status);
+    @Query("SELECT la FROM LoanApplication la WHERE la.verificationStatus = 'VERIFIED' AND la.employeeId = ?1")
+    List<LoanApplication> findVerifiedApplicationsByEmployeeId(Long employeeId);
 
-    // Method to retrieve loan applications by accessibility compliance
-    List<LoanApplication> findByAccessibilityCompliance(boolean accessibilityCompliance);
+    @Query("SELECT la FROM LoanApplication la WHERE la.verificationStatus = 'REJECTED' AND la.employeeId = ?1")
+    List<LoanApplication> findRejectedApplicationsByEmployeeId(Long employeeId);
 
-    // Method to retrieve loan applications with incomplete applications
-    @Query("SELECT la FROM LoanApplication la WHERE la.status <> 'COMPLETED'")
-    List<LoanApplication> findIncompleteApplications();
+    @Query("SELECT la FROM LoanApplication la WHERE la.applicantId = ?1")
+    LoanApplication findByApplicantId(Long applicantId);
 }

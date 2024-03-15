@@ -1,23 +1,28 @@
+
 package com.sacral.java.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
+@Table(name = "loan_application")
 public class LoanApplication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private Long customerId;
-    private String applicationChannel;
-    private String status;
-    private boolean accessibilityCompliance;
 
-    // Getters and Setters
+    @Column(name = "verification_status")
+    private String verificationStatus;
+
+    @Column(name = "employee_id")
+    private Long employeeId;
+
+    @Column(name = "applicant_id")
+    private Long applicantId;
+
+    // Getters and setters
+    
     public Long getId() {
         return id;
     }
@@ -26,35 +31,45 @@ public class LoanApplication {
         this.id = id;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public String getVerificationStatus() {
+        return verificationStatus;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setVerificationStatus(String verificationStatus) {
+        this.verificationStatus = verificationStatus;
     }
 
-    public String getApplicationChannel() {
-        return applicationChannel;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setApplicationChannel(String applicationChannel) {
-        this.applicationChannel = applicationChannel;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getStatus() {
-        return status;
+    public Long getApplicantId() {
+        return applicantId;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setApplicantId(Long applicantId) {
+        this.applicantId = applicantId;
     }
 
-    public boolean isAccessibilityCompliance() {
-        return accessibilityCompliance;
+    // Equals and hashCode methods
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LoanApplication that = (LoanApplication) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(verificationStatus, that.verificationStatus) &&
+                Objects.equals(employeeId, that.employeeId) &&
+                Objects.equals(applicantId, that.applicantId);
     }
 
-    public void setAccessibilityCompliance(boolean accessibilityCompliance) {
-        this.accessibilityCompliance = accessibilityCompliance;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, verificationStatus, employeeId, applicantId);
     }
 }
